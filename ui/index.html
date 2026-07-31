@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Messenger</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-4.0.0.min.js"
+      integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+      integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="login-form-18/login-form-18/css/style.css" />
+  </head>
+  <body>
+    <br />
+    <div id="loginUI">
+      <section class="ftco-section">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+              <h2 class="heading-section">Login Page</h2>
+              <div id="login-error" style="color: red; min-height: 20px"></div>
+              <h1 class="heading-section">Messenger</h1>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+              <div class="login-wrap p-4 p-md-5">
+                <div
+                  class="icon d-flex align-items-center justify-content-center"
+                >
+                  <span class="fa fa-user-o"></span>
+                </div>
+                <div class="form-group">
+                  <input
+                    id="username"
+                    type="text"
+                    class="form-control rounded-left"
+                    placeholder="Username"
+                    required
+                  />
+                </div>
+                <div class="form-group d-flex">
+                  <input
+                    id="password"
+                    type="password"
+                    class="form-control rounded-left"
+                    placeholder="Password"
+                    required
+                  />
+                </div>
+                <div class="form-group d-md-flex">
+                  <div class="w-50">
+                    <a href="#" id="showRegisterBtn" style="padding-bottom: 0"
+                      >Register Here</a
+                    >
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button
+                    id="join-button"
+                    type="submit"
+                    class="btn btn-primary rounded submit p-3 px-5"
+                  >
+                    Login
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- AC-05.1: registration form reachable from login screen, no page reload -->
+    <div id="registerUI" style="display: none">
+      <section class="ftco-section">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+              <h2 class="heading-section">Registration Page</h2>
+              <div
+                id="register-error"
+                style="color: red; min-height: 20px"
+              ></div>
+              <h1 class="heading-section">Messenger</h1>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+              <div class="login-wrap p-4 p-md-5">
+                <div
+                  class="icon d-flex align-items-center justify-content-center"
+                >
+                  <span class="fa fa-user-o"></span>
+                </div>
+                <form>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control rounded-left"
+                      id="reg-username"
+                      placeholder="Enter Username"
+                      maxlength="20"
+                      required
+                      pattern=".{3,20}"
+                      title="username must be between 3-20 characters"
+                      onchange="
+                        this.setCustomValidity(
+                          this.validity.patternMismatch ? this.title : '',
+                        )
+                      "
+                    />
+                  </div>
+                  <div class="form-group d-flex">
+                    <input
+                      type="password"
+                      class="form-control rounded-left"
+                      id="reg-password"
+                      placeholder="Enter Password"
+                      maxlength="72"
+                      required
+                      pattern="(?=.*[A-Za-z])(?=.*\d).{6,}"
+                      title="Password must be contain letters and numbers totalling up to 6 characters long"
+                      onchange="
+                        this.setCustomValidity(
+                          this.validity.patternMismatch ? this.title : '',
+                        )
+                      "
+                    />
+                  </div>
+                  <div class="form-group d-flex">
+                    <input
+                      type="email"
+                      class="form-control rounded-left"
+                      id="reg-email"
+                      placeholder="Enter Email"
+                      required
+                    />
+                  </div>
+                  <div class="form-group d-flex">
+                    <input
+                      type="text"
+                      class="form-control rounded-left"
+                      id="reg-fullname"
+                      placeholder="Enter Full Name"
+                      required
+                    />
+                  </div>
+                  <div class="form-group d-md-flex">
+                    <div class="w-50">
+                      <a href="#" id="showLoginBtn" style="padding-bottom: 0"
+                        >Login Here</a
+                      >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <button
+                      id="registerBtn"
+                      type="submit"
+                      class="btn btn-primary rounded submit p-3 px-5"
+                    >
+                      Register Account
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div id="chatUI" style="display: none">
+      <div class="app-shell">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <h2>Messenger</h2>
+
+          <div class="account-actions">
+            <button id="ChangeAccountInfo">Account Management</button>
+            <button id="logout-button">Logout</button>
+          </div>
+
+          <section class="sidebar-card">
+            <h3>Users</h3>
+            <div id="user-list"></div>
+          </section>
+
+          <section class="sidebar-card">
+            <h3>System Status</h3>
+            <div id="status"></div>
+          </section>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-main">
+          <!-- Public Chat Panel -->
+          <section class="chat-panel public-chat-panel">
+            <div class="chat-header">
+              <h2>Public Chat</h2>
+              <p>Messages sent here are visible to all connected users.</p>
+            </div>
+
+            <label for="chat-message">Public Message</label>
+            <div
+              id="chat-message"
+              class="message-input"
+              contenteditable="true"
+            ></div>
+
+            <div class="chat-actions">
+              <button id="link-button">Link</button>
+              <button id="send-button" class="button round">Send Public</button>
+            </div>
+
+            <div id="public-typing-status" class="typing-status"></div>
+
+            <h3>Public Chat Responses</h3>
+            <div id="responses" class="message-display public-messages"></div>
+          </section>
+
+          <!-- Private Chat Panel -->
+          <section class="chat-panel private-chat-panel">
+            <div class="chat-header">
+              <h2>Private Chat</h2>
+              <p>Messages sent here are only delivered to the selected user.</p>
+            </div>
+
+            <label for="private-to">Send To</label>
+            <input
+              type="text"
+              id="private-to"
+              placeholder="Recipient username"
+              class="recipient-input"
+            />
+
+            <label for="private-message">Private Message</label>
+            <div
+              id="private-message"
+              class="message-input"
+              contenteditable="true"
+            ></div>
+
+            <div class="chat-actions">
+              <button id="private-link-button">Link</button>
+              <button id="private-send-button" class="button round">
+                Send Private
+              </button>
+            </div>
+
+            <div id="private-typing-status" class="typing-status"></div>
+
+            <h3>Private Chat Responses</h3>
+            <div
+              id="private-responses"
+              class="message-display private-messages"
+            ></div>
+          </section>
+          <!-- Group Chat Panel -->
+          <section class="chat-panel group-chat-panel">
+            <h2>Group Chat</h2>
+            <p class="chat-description">
+              Join a group and send messages only to users in that group.
+            </p>
+
+            <label for="group-name"><b>Group Name:</b></label>
+            <input
+              type="text"
+              id="group-name"
+              placeholder="Example: team1"
+              class="recipient-input"
+            />
+
+            <div class="chat-actions">
+              <button id="join-group-button" class="button round">
+                Join Group
+              </button>
+              <button id="leave-group-button">Leave Group</button>
+            </div>
+
+            <div id="group-status" class="typing-status"></div>
+
+            <label for="group-message"><b>Group Message:</b></label>
+            <div
+              id="group-message"
+              class="message-input"
+              contenteditable="true"
+            ></div>
+
+            <button id="group-send-button" class="button round">
+              Send Group
+            </button>
+
+            <h3>Group Chat Responses</h3>
+            <div
+              id="group-responses"
+              class="message-display group-messages"
+            ></div>
+          </section>
+        </main>
+      </div>
+
+      <dialog id="link-popup">
+        <b>Insert link</b><br />
+        Text to display<br />
+        <input
+          id="link-text-input"
+          type="text"
+          placeholder="Text to display"
+        /><br />
+        Address<br />
+        <input
+          id="link-address-input"
+          type="text"
+          placeholder="Link to an existing file or web page"
+        /><br />
+        <button id="cancel-link-button">Cancel</button>
+        <button id="insert-link-button" disabled>Insert</button>
+      </dialog>
+
+      <dialog id="user-profile-popup" class="profile-popup">
+        <div class="profile-popup-header">
+          <h3 id="user-profile-username">User Profile</h3>
+          <button
+            type="button"
+            id="close-user-profile"
+            aria-label="Close user profile"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="profile-row">
+          <span>Name</span>
+          <strong id="user-profile-name"></strong>
+        </div>
+        <div class="profile-row">
+          <span>Email</span>
+          <strong id="user-profile-email"></strong>
+        </div>
+        <p id="user-profile-error" class="profile-error"></p>
+      </dialog>
+    </div>
+    <div id="AccountManagement" style="display: none">
+      <section class="ftco-section">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+              <h2 class="heading-section">Account Management</h2>
+              <div id="edit-profile-message" style="min-height: 20px"></div>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+              <div class="login-wrap p-4 p-md-5">
+                <div class="form-group">
+                  <input
+                    type="password"
+                    id="current-password"
+                    class="form-control rounded-left"
+                    placeholder="Current Password"
+                    required
+                  />
+                </div>
+                <div class="form-group d-flex">
+                  <input
+                    type="password"
+                    id="edit-new-password"
+                    class="form-control rounded-left"
+                    placeholder="New Password (leave blank to keep current)"
+                  />
+                </div>
+                <div class="form-group d-flex">
+                  <input
+                    type="email"
+                    id="edit-new-email"
+                    class="form-control rounded-left"
+                    placeholder="New Email (leave blank to keep current)"
+                  />
+                </div>
+                <div class="form-group d-flex">
+                  <input
+                    type="text"
+                    id="edit-new-fullname"
+                    class="form-control rounded-left"
+                    placeholder="New Full Name (leave blank to keep current)"
+                  />
+                </div>
+                <div class="form-group">
+                  <button
+                    id="edit-profile-button"
+                    type="button"
+                    class="btn btn-primary rounded p-3 px-5"
+                  >
+                    Save Changes
+                  </button>
+                </div>
+                <div class="form-group">
+                  <button
+                    id="goto-chat"
+                    type="button"
+                    class="btn btn-secondary rounded submit p-3 px-5"
+                  >
+                    Go Back
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script src="client.js"></script>
+  </body>
+</html>
