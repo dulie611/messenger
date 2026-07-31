@@ -1,0 +1,33 @@
+{
+  "name": "messenger",
+  "version": "1.0.0",
+  "description": "Programming Languages Final Project",
+  "keywords": [
+    "Node.js",
+    "Express",
+    "socket.io"
+  ],
+  "homepage": "https://github.com/dulie611/messenger#readme",
+  "bugs": {
+    "url": "https://github.com/dulie611/messenger/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dulie611/messenger.git"
+  },
+  "author": "Abdulah Dia",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.2.1",
+    "mongodb": "^7.5.0",
+    "socket.io": "^4.8.3"
+  },
+  "allowScripts": {
+    "bcrypt@6.0.0": true
+  }
+}
