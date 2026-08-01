@@ -347,3 +347,326 @@ label {
 .group-messages {
   background: #f8f8f8;
 }
+
+/* =========================================================
+   Authentication and account-management screens
+   Matches the existing Messenger chat UI
+   ========================================================= */
+
+#loginUI,
+#registerUI,
+#AccountManagement {
+  min-height: 100vh;
+  padding: 32px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(37, 99, 235, 0.1),
+      transparent 34%
+    ),
+    #f5f7fb;
+}
+
+/* Preserve JavaScript's inline display:none when screens are inactive. */
+#loginUI[style*="display: none"],
+#registerUI[style*="display: none"],
+#AccountManagement[style*="display: none"] {
+  display: none !important;
+}
+
+#loginUI .ftco-section,
+#registerUI .ftco-section,
+#AccountManagement .ftco-section {
+  width: 100%;
+  padding: 0;
+}
+
+#loginUI .container,
+#registerUI .container,
+#AccountManagement .container {
+  width: min(100%, 460px);
+  margin: 0 auto;
+  padding: 0;
+}
+
+#loginUI .row,
+#registerUI .row,
+#AccountManagement .row {
+  margin: 0;
+}
+
+#loginUI .col-md-6,
+#loginUI .col-lg-5,
+#registerUI .col-md-6,
+#registerUI .col-lg-5,
+#AccountManagement .col-md-6,
+#AccountManagement .col-lg-5 {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+}
+
+#loginUI .mb-5,
+#registerUI .mb-5,
+#AccountManagement .mb-5 {
+  margin-bottom: 18px !important;
+}
+
+#loginUI .heading-section,
+#registerUI .heading-section,
+#AccountManagement .heading-section {
+  margin: 0;
+  color: #111827;
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+#loginUI h1.heading-section,
+#registerUI h1.heading-section {
+  margin-top: 6px;
+  font-size: clamp(28px, 7vw, 36px);
+}
+
+#loginUI h2.heading-section,
+#registerUI h2.heading-section,
+#AccountManagement h2.heading-section {
+  font-size: clamp(20px, 5vw, 26px);
+}
+
+#login-error,
+#register-error,
+#edit-profile-message {
+  width: 100%;
+  min-height: 20px;
+  margin: 8px 0 0;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+}
+
+#loginUI .login-wrap,
+#registerUI .login-wrap,
+#AccountManagement .login-wrap {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 32px !important;
+  box-sizing: border-box;
+  border: 1px solid #d1d5db;
+  border-top: 5px solid #2563eb;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
+}
+
+#registerUI .login-wrap {
+  border-top-color: #94449a;
+}
+
+#AccountManagement .login-wrap {
+  border-top-color: #f59e0b;
+}
+
+#loginUI .icon,
+#registerUI .icon {
+  width: 58px;
+  height: 58px;
+  margin: -62px auto 24px;
+  border: 5px solid #f5f7fb;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 22px;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+}
+
+#registerUI .icon {
+  background: #94449a;
+  box-shadow: 0 6px 14px rgba(148, 68, 154, 0.25);
+}
+
+#loginUI .form-group,
+#registerUI .form-group,
+#AccountManagement .form-group {
+  margin-bottom: 14px;
+}
+
+#loginUI .form-control,
+#registerUI .form-control,
+#AccountManagement .form-control {
+  width: 100%;
+  min-height: 46px;
+  padding: 11px 13px;
+  box-sizing: border-box;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px !important;
+  background: #f9fafb;
+  color: #111827;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+  box-shadow: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+#loginUI .form-control::placeholder,
+#registerUI .form-control::placeholder,
+#AccountManagement .form-control::placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
+
+#loginUI .form-control:focus,
+#registerUI .form-control:focus,
+#AccountManagement .form-control:focus {
+  border-color: #2563eb;
+  outline: none;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16);
+}
+
+#registerUI .form-control:focus {
+  border-color: #94449a;
+  box-shadow: 0 0 0 3px rgba(148, 68, 154, 0.16);
+}
+
+#AccountManagement .form-control:focus {
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18);
+}
+
+#loginUI .w-50,
+#registerUI .w-50 {
+  width: 100% !important;
+  text-align: center;
+}
+
+#showRegisterBtn,
+#showLoginBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 7px 11px !important;
+  border-radius: 8px;
+  color: #2563eb;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+#showRegisterBtn:hover,
+#showRegisterBtn:focus,
+#showLoginBtn:hover,
+#showLoginBtn:focus {
+  background: #eff6ff;
+  color: #1d4ed8;
+  outline: none;
+}
+
+#registerUI #showLoginBtn {
+  color: #94449a;
+}
+
+#registerUI #showLoginBtn:hover,
+#registerUI #showLoginBtn:focus {
+  background: #faf5ff;
+  color: #7e3a84;
+}
+
+#join-button,
+#registerBtn,
+#edit-profile-button,
+#goto-chat {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px !important;
+  border: none;
+  border-radius: 8px !important;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+#join-button,
+#edit-profile-button {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+#registerBtn {
+  background: #94449a;
+  color: #ffffff;
+}
+
+#goto-chat {
+  border: 1px solid #cbd5e1;
+  background: #e5e7eb;
+  color: #111827;
+}
+
+#join-button:hover,
+#edit-profile-button:hover {
+  background: #1d4ed8;
+}
+
+#registerBtn:hover {
+  background: #7e3a84;
+}
+
+#goto-chat:hover {
+  background: #d1d5db;
+}
+
+#join-button:hover,
+#registerBtn:hover,
+#edit-profile-button:hover,
+#goto-chat:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.12);
+}
+
+#join-button:focus-visible,
+#registerBtn:focus-visible,
+#edit-profile-button:focus-visible,
+#goto-chat:focus-visible,
+#showRegisterBtn:focus-visible,
+#showLoginBtn:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 2px;
+}
+
+@media (max-width: 520px) {
+  #loginUI,
+  #registerUI,
+  #AccountManagement {
+    padding: 24px 12px;
+  }
+
+  #loginUI .login-wrap,
+  #registerUI .login-wrap,
+  #AccountManagement .login-wrap {
+    padding: 26px 20px !important;
+  }
+}
